@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
   # Routes for the User account:
+  get("/", {:controller=>"user", :action=>"index"})
+  get("/users", {:controller=>"user", :action=>"index"})
+  get("/users/:path_id", {:controller=>"user", :action=>"show"})
+
+  get("/users/:path_id/liked_photos", {:controller=>"user", :action=>"liked_photos"})
+  get("/users/:path_id/feed", {:controller=>"user", :action=>"show_feed"})
+  
 
   # SIGN UP FORM
   get("/user_sign_up", { :controller => "user_authentication", :action => "sign_up_form" })        

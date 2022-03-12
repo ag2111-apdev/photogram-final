@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      Photo #<%= @the_photo.id %> details
+      Photo Details
     </h1>
 
     <div>
@@ -10,15 +10,23 @@
           Go back
         </a>
       </div>
-
+    <%if session[:user_id]==@the_photo.owner_id%>
       <div>
         <a href="/delete_photo/<%= @the_photo.id %>">
-          Delete photo
+          Delete this photo
         </a>
       </div>
+    <%else%>
+    <%end%>
     </div>
 
     <dl>
+      <dt>
+        Image
+      </dt>
+      <dt>
+        <img src="<%=@the_photo.image%>">
+      </dt>
       <dt>
         Caption
       </dt>
@@ -31,13 +39,6 @@
       </dt>
       <dd>
         <%= @the_photo.comments_count %>
-      </dd>
-
-      <dt>
-        Image
-      </dt>
-      <dd>
-        <%= @the_photo.image %>
       </dd>
 
       <dt>

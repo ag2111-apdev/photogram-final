@@ -15,6 +15,37 @@
   </head>
 
   <body>
+    <ul>
+      <li>
+        <a href="/users">All users</a>
+      </li>
+      <li>
+        <a href="/photos">All public photos</a>
+      </li>
+
+      <!-- If no one is signed in, show sign in/up -->
+      <!-- Else, show sign out -->
+      
+      <% if session[:user_id] == nil %>
+        <li>
+          <a href="/user_sign_in">Sign in</a>
+        </li>
+        <li>
+          <a href="/user_sign_up">Sign up</a>
+        </li>
+      <% else %>
+        <li>
+          <a href="/edit_user_profile"><%=User.where(:id=>session.fetch(:user_id)).at(0).username%>
+          
+          </a>
+        </li>
+        <li>
+          <a href="/user_sign_out">Sign out</a>
+        </li>
+      <% end %>
+    </ul>
+    <p><%= notice %></p>
+    <p><%= alert %></p>
     <%= yield %>
   </body>
 </html>
