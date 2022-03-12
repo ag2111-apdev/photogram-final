@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
+#  avatar          :string
 #  comments_count  :integer
 #  email           :string
 #  likes_count     :integer
@@ -25,5 +26,6 @@ class User < ApplicationRecord
 
   has_many(:followees, { :through => :follow_requests, :source => :recipient })
   has_many(:followers, { :through => :get_follower, :source => :sender })
+  
   
 end
