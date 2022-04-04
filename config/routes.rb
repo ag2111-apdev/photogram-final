@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   get("/users/:path_id/liked_photos", {:controller=>"user", :action=>"liked_photos"})
   get("/users/:path_id/feed", {:controller=>"user", :action=>"show_feed"})
-  
+  get("/users/:path_id/discover", {:controller=>"user", :action=>"discover"})
 
   # SIGN UP FORM
   get("/user_sign_up", { :controller => "user_authentication", :action => "sign_up_form" })        

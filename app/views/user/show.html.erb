@@ -7,29 +7,62 @@
   <dt>Followers</dt>
   <dd>
     <%=@the_user.followers.count%>
-    <div>
+    <% if @request == nil%>
+      <div>
         <form action="/insert_follow_request" method="post">
-          <input type="hidden" name="query_recipient_id" value="95">
-
+          <input type="hidden" name="query_recipient_id" value="<%=@the_user.id%>">
+          <input type="hidden" name="query_sender_id" value="<%=session[:user_id]%>">
+          <input type="hidden" name="query_status" value="accepted">
           <button>
               Follow
           </button>
         </form>
-    </div>
+      </div>
+    <% else @request!=nil%>
+      <a href="/delete_follow_request/<%=@request.id%>">Unfollow</a>
+    <% end %>
 
+    <%if session[:user_id]==@the_user.id%>
+      <h4>Pending follow requests</h4>
+      <%x=User.where({:id=>session[:user_id]}).at(0)%>
+      <%z=x.get_follower%>
+      <%z.each do |request|%>
+        <% if request.status=="pending"%>
+          <ul>request.sender.username</ul>
+        <%else%>
+        <%end%>
+      <%end%>
+    <%end%>
   </dd>
 
   <dt>Following</dt>
   <dd><%=@the_user.followees.count%></dd>
+  
+  
   <% if session[:user_id]==@the_user.id%>
-    <dt>Edit user</dt>
-    <form action="/" method="post">
-      <button>
-        Update user
-      </button>
-    </form>
+  <dt>Edit user</dt>
+  <dd>
+    <div>
+      <form action="/modify_user" method="post">
+        <label for="usernam">
+          Username
+        </label>
+
+        <input type="text" id="usernam" name="query_username" value="<%=@the_user.username%>">
+
+        <label for="set_status">
+          Private
+        </label>
+
+        <input type="checkbox" id="set_status" name="query_private">
+        <button>
+          Update user
+        </button>
+      </form>
+    </div>
   <%else%>
   <%end%>
+  </dd>
 </dl>
 
 
